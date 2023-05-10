@@ -6,8 +6,10 @@ val navig=Vector(Vector(4,1,3,2),Vector(4,2,3,1),Vector(1,1,1,4),Vector(3,2,3,3)
 matchByElement(2,5)
 matchByElement(3,5)
 matchsByElements(5)
+possibleMatchings(3)
+matchings(3)
+
 /*
-possibleMatchings(2)
 possibleMatchings(3)
 possibleMatchings(5)
 matchings(2)
