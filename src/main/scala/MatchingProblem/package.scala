@@ -41,14 +41,17 @@ package object MatchingProblem {
     } yield matches
     pairings
   }
+    def weightedMatchings(n: Int, pilotPrefs: Preferences, navigPrefs: Preferences): List[(Matching, Int)] = {
+      val allMatchings = matchings(n)
+      val weightedMatchings = for {
+        matching <- allMatchings
+        weight = matching.zipWithIndex.map { case ((pilot, navigator), index) => pilotPrefs(pilot - 1)(navigator - 1) * navigPrefs(navigator - 1)(pilot - 1) }.sum
+      } yield (matching, weight)
+      weightedMatchings
+    }
 
-  /*
-      def weightedMatchings(n: Int, pilotPrefs: Preferences, navigPrefs: Preferences): List[(Matching, Int)] = {
-      }
-
-      def bestMatching(n: Int, pilotPrefs: Preferences, navigPrefs: Preferences): (Matching, Int) = {
-
-      }
-    */
-
+  def bestMatching(n: Int, pilotPrefs: Preferences, navigPrefs: Preferences): (Matching, Int) = {
+    val weighted = weightedMatchings(n, pilotPrefs, navigPrefs)
+    weighted.maxBy(_._2)
+  }
 }
